@@ -1,3 +1,4 @@
+
 const mockHash = "$2b$10$bdPxMEzsh9rsPFGRUvodw.ACRQaPZy2FlqBfa/LrblgALRNJoTjiO"
 
 const user1 = {
@@ -14,4 +15,8 @@ const user3 = {
 }
 const users = [user1, user2, user3]
 
-module.exports = { users }
+const  { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
+
+
+module.exports = { users, prisma }
