@@ -4,10 +4,8 @@ const bcrypt = require("bcrypt")
 
 async function logUser(req ,res ) {
     const { email, password } = req.body
-    try {
-        
+    try {    
       const user = await getUser(email)
-      console.log(user)
       if (user == null) return res.status(404).send({error: "User not found"})
 
     const isPasswordCorrect = await checkPassword(user, password)   
@@ -24,8 +22,8 @@ function makeToken(email) {
     return jwt.sign({ email }, process.env.SECRET, { expiresIn: "24h" }) 
 }
 
-async function getUser(email) {
-    return  await prisma.user.findUnique({ where: { email: email}} )
+function getUser(email) {
+    return  prisma.user.findUnique({ where: { email: email}} )
 }
 
 function checkPassword(user, password) {

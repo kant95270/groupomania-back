@@ -22,6 +22,8 @@ model Post{
     content  String
     imageUrl String?
     userId   Int
+    likes   Int?
+    dislikes   Int?
     user     User @relation(fields: [userId], references: [id])
     comments Comment[]
     createdAt DateTime @default(now())

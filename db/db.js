@@ -1,4 +1,3 @@
-
 const mockHash = "$2b$10$bdPxMEzsh9rsPFGRUvodw.ACRQaPZy2FlqBfa/LrblgALRNJoTjiO"
 
 const user1 = {
