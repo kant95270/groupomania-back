@@ -114,4 +114,45 @@ async function createComment(req, res) {
     res.send({ comment })
 }
 
-module.exports = { getPosts, createPost, deletePost, createComment }
+async function handleLike(req ,res) {
+    const postId = Number(req.params.id)
+    const like = req.body.like
+
+    try {
+        const post = await prisma.post.findUnique({
+            where: { id: postId },
+            include: {
+                user : {
+                    select: {
+                        id: true
+                    }
+                }
+            }
+        })
+
+        if (post == null) {
+            return res.status(404).send({ error: "Post not found" })
+        }
+
+        console.log(post)
+        console.log(post.likes)
+        let data = {};
+        if (like === 1) {
+            data = { likes : (parseInt(post.likes, 10) || 0) + 1}
+        } else if (like === -1) {
+            data = { dislikes : (parseInt(post.dislikes, 10) || 0) + 1}
+        }
+
+        await prisma.post.update({
+            where: { id: postId },
+            data: data,
+        })
+        
+        res.send({ post })
+    } catch (err) {
+        res.status(500).send({ error: "Something went wrong" })
+    }
+}
+
+module.exports = { getPosts, createPost, deletePost, createComment, handleLike }
+
