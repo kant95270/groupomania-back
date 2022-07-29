@@ -22,4 +22,4 @@ The db schema is inside the 'schema.Prisma'
 
 if you want to change it, you have ton run 'npx prisma db push'
 
-to launch the 'npm run dev' 
+you have ton run the 'npm run dev' 
